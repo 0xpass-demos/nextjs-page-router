@@ -1,5 +1,7 @@
 import { PassProvider, connectorsForWallets, createClient } from "0xpass";
 import "0xpass/styles.css";
+import "../styles/globals.css"
+
 import {
   coinbaseWallet,
   emailMagicWallet,
@@ -15,34 +17,31 @@ import {
   polygon,
   polygonMumbai,
 } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "xxxxxx";
-const apiKey = process.env.NEXT_PUBLIC_API_KEY || "xxxxxx";
-const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID ?? "xxxxxx";
+const connectWalletProjectId = "1ccaf857ab73b97e10a5a333aab8edaf"  //obtained from https://cloud.walletconnect.com/sign-in
+const OxpassApiKey = "" //enter your 0xpass key obtained from https://0xpass.io/register
+const magicPublicKey = "pk_live_262C7B7D9D959DBA" //obtained from https://dashboard.magic.link/signup
 
 const { chains, publicClient } = configureChains(
     [polygonMumbai, mainnet, polygon, optimism, arbitrum],
-    [alchemyProvider({ apiKey: alchemyId }), publicProvider()]
+    [ publicProvider()]
 );
 
-const magicApiKey = "xxxxxx";
-const passClient = createClient({ apiKey, chains });
+const passClient = createClient({ apiKey: OxpassApiKey, chains });
 const connectors = connectorsForWallets([
-  {
-    groupName: "Email",
-    wallets: [
-      emailMagicWallet({ apiKey: magicApiKey, chains, shimDisconnect: true }),
-    ],
-  },
-
+  // {
+  //   groupName: "Email",
+  //   wallets: [
+  //     emailMagicWallet({ apiKey: magicPublicKey, chains, shimDisconnect: true }),
+  //   ],
+  // },
   {
     groupName: "Wallets",
     wallets: [
-      metaMaskWallet({ projectId, chains }),
+      metaMaskWallet({ projectId: connectWalletProjectId, chains }),
       coinbaseWallet({ appName: "0xPass", chains }),
-      walletConnectWallet({ projectId, chains }),
+      walletConnectWallet({ projectId: connectWalletProjectId, chains }),
     ],
   },
 ]);
