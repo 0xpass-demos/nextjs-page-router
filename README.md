@@ -1,6 +1,7 @@
 # Getting Started with Create Next App
 
 This project was bootstrapped with Create Next App
+
 ## Install the project
 
 In the project directory, you can run:
@@ -45,7 +46,7 @@ Line 23
 ![screen.png](images/demo/screen.png)
 
 
-## Start the appp
+## Start the app
 
 ```bash
 pnpm dev
